@@ -1,7 +1,20 @@
 const User = require('../models/user');
 
-//render the Sign in page
+//render profile page
+module.exports.profile = function(req,res){
+    return res.render('profile',{
+        title: "Profile",
+    })
+}
+
+//render the Sign up page
 module.exports.signUp = function(req,res){
+
+    //if a user is authenticated(logged in), sign up page cannot be accessed
+    if(req.isAuthenticated()){
+        res.redirect('/profile');
+    }
+
     return res.render('user_sign_up',{
         title: "Sign up"
     })
@@ -9,8 +22,12 @@ module.exports.signUp = function(req,res){
 
 //render the Sign in page
 module.exports.signIn = function(req,res){
-    console.log(req.cookies);
-    res.cookie('user_id',25);
+
+    //if a user is authenticated(logged in), sign in page cannot be accessed
+    if(req.isAuthenticated()){
+        res.redirect('/profile');
+    }
+
     return res.render('user_sign_in',{
         title: "Sign in"
     })
@@ -52,5 +69,5 @@ module.exports.createUser = function(req,res){
 
 //get the sign in data
 module.exports.createSession = function(req,res){
-
+    return res.redirect('/profile');
 };

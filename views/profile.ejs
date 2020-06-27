@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=title%>
+    </title>
+</head>
+<body>
+    <h1>Profile page</h1>
+
+    <p>name : <%=user.name%></p>
+    <p>email : <%=user.email%></p>
+
+    <form action="/sign-out" method="GET">
+        <input type="submit" value="Sign out">
+    </form>
+    
+
+</body>
+</html>
