@@ -1,7 +1,9 @@
 const User = require('../models/user');
+const crypto = require('crypto');
 
 //render profile page
 module.exports.profile = function(req,res){
+
     return res.render('profile',{
         title: "Profile",
     })
@@ -23,6 +25,8 @@ module.exports.signUp = function(req,res){
 //render the Sign in page
 module.exports.signIn = function(req,res){
 
+    console.log("SIGN IN",req.cookies); 
+
     //if a user is authenticated(logged in), sign in page cannot be accessed
     if(req.isAuthenticated()){
         return res.redirect('/profile');
@@ -35,6 +39,7 @@ module.exports.signIn = function(req,res){
 
 //get the sign up data
 module.exports.createUser = function(req,res){
+
 
     //if Password and Confirm Password doesn't match redirect to Sign up page
     if(req.body.password != req.body.confirm_password){
@@ -82,4 +87,39 @@ module.exports.signOut = function(req,res){
     req.flash('success','Logged out');
     return res.redirect('/sign-in');
 
-}
+};
+
+//reset password
+
+module.exports.resetPassword = function(req,res){
+
+    let token = crypto.randomBytes(20).toString('hex');
+
+    return res.render('reset');
+};
+
+module.exports.updateDB = function(req,res){
+
+    console.log("wooohoooo",req.user);
+
+    if(req.body.old_password != req.user.password){
+        console.log(1);
+        req.flash('error', 'Incorrect password');
+        return;
+    }
+    else if(req.body.new_password != req.body.confirm_password){
+        console.log(2);
+        req.flash('error', 'Incorrect password');
+        return;
+    }
+
+    console.log(req.user.email);
+    console.log(3);
+
+    User.update(
+        {email: req.user.email},
+        {$set: {password : req.body.new_password}},function(err){
+            return res.redirect('/sign-out');
+        });
+
+};

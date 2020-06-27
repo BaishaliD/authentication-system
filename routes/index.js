@@ -34,6 +34,11 @@ router.get('/auth/google/callback', passport.authenticate(
     { failureRedirect: '/sign-in' }
 ), userController.createSession);
 
+//reset password
+
+router.get('/reset-password', userController.resetPassword);
+
+router.post('/update-db',userController.updateDB);
 
 
 
