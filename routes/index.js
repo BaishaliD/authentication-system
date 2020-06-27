@@ -11,6 +11,8 @@ router.get('/sign-up',userController.signUp);
 
 router.get('/sign-in',userController.signIn);
 
+router.get('/sign-out',userController.signOut);
+
 router.post('/create-user',userController.createUser);
 
 //use pass port as middleware to authenticate

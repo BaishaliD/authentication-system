@@ -12,7 +12,7 @@ module.exports.signUp = function(req,res){
 
     //if a user is authenticated(logged in), sign up page cannot be accessed
     if(req.isAuthenticated()){
-        res.redirect('/profile');
+        return res.redirect('/profile');
     }
 
     return res.render('user_sign_up',{
@@ -25,7 +25,7 @@ module.exports.signIn = function(req,res){
 
     //if a user is authenticated(logged in), sign in page cannot be accessed
     if(req.isAuthenticated()){
-        res.redirect('/profile');
+        return res.redirect('/profile');
     }
 
     return res.render('user_sign_in',{
@@ -71,3 +71,8 @@ module.exports.createUser = function(req,res){
 module.exports.createSession = function(req,res){
     return res.redirect('/profile');
 };
+
+module.exports.signOut = function(req,res){
+    req.logout();
+    return res.redirect('/sign-in');
+}
