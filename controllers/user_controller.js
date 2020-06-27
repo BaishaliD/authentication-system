@@ -77,7 +77,9 @@ module.exports.createSession = function(req,res){
 
 //sign out user
 module.exports.signOut = function(req,res){
+    
     req.logout();
     req.flash('success','Logged out');
     return res.redirect('/sign-in');
+
 }
