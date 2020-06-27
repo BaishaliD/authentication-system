@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
         <%= title %>
     </title>
 </head>
+
 <body>
     <h1>Sign in</h1>
 
@@ -16,5 +18,18 @@
         <input type="submit" value="Sign In">
     </form>
 
+    <% if (flash.error && flash.error.length > 0) { %>
+        <h5>
+            <%= flash.error %>
+        </h5>
+    <% } %>
+
+    <% if (flash.success && flash.success.length > 0) { %>
+        <h5>
+            <%= flash.success %>
+        </h5>
+    <% } %>
+
 </body>
+
 </html>

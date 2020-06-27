@@ -27,7 +27,7 @@ module.exports.signIn = function(req,res){
     if(req.isAuthenticated()){
         return res.redirect('/profile');
     }
-
+    
     return res.render('user_sign_in',{
         title: "Sign in"
     })
@@ -38,6 +38,7 @@ module.exports.createUser = function(req,res){
 
     //if Password and Confirm Password doesn't match redirect to Sign up page
     if(req.body.password != req.body.confirm_password){
+        
         return res.redirect('back');
     }
 
@@ -69,10 +70,14 @@ module.exports.createUser = function(req,res){
 
 //get the sign in data
 module.exports.createSession = function(req,res){
+    
     return res.redirect('/profile');
 };
 
+
+//sign out user
 module.exports.signOut = function(req,res){
     req.logout();
+    req.flash('success','Logged out');
     return res.redirect('/sign-in');
 }
