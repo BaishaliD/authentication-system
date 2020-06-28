@@ -15,6 +15,8 @@ const crypto = require('crypto');
 const flash = require('connect-flash');
 const customMiddleware = require('./config/middleware');
 
+const bcrypt = require('bcrypt');
+
 app.use(express.urlencoded());
 
 
