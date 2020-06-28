@@ -1,0 +1,93 @@
+body{
+    background-image: url("./images/bg-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #cccccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    min-width: 400px;
+    border-radius: 3px;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.header span{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.profile-info{
+    width: 100%;
+    font-size: 1.2;
+    border-top: rgb(185, 176, 176) 1px solid;
+    border-bottom: rgb(185, 176, 176) 1px solid;
+    margin-bottom: 15px;
+}
+
+
+.button{
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #eabb33;
+    border: none;
+    border-radius: 3px;
+}
+
+.button:hover{
+    background-color: #f5d060;
+}
+
+.button:focus{
+    outline: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+#reset-button{
+    margin-top: 20px;
+    width: fit-content;
+}
+
+.reset span{
+    font-size: bold;
+    margin: 10px 0;
+}
+
+#reset-password-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#reset-password-form input{
+    padding: 5px;
+    width: 250px;
+}
+
+/* Initially change password form is hidden */
+
+.reset{
+    display: none;
+}

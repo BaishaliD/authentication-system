@@ -34,31 +34,17 @@ passport.use(new LocalStrategy({
             let myPlaintextPassword = req.body.password;
             bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
 
-                console.log(myPlaintextPassword, hash);
-                console.log(result);
 
                 if (!result) {
 
-                    console.log('2');
                     req.flash('error', 'Incorrect username/password');
                     return done(null, false);
                 }
 
-                console.log('3');
                 return done(null, user);
 
             });
-
-
-            //if user is not found/ password doesn't match
-            // if (!user || user.password != password) {
-
-            //     req.flash('error', 'Incorrect username/password');
-            //     return done(null, false);
-            // }
-
-            //if user is found and password matches
-            //return done(null, user);
+;
         })
 
     }

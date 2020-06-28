@@ -11,6 +11,8 @@ router.get('/sign-up', userController.signUp);
 
 router.get('/sign-in', userController.signIn);
 
+router.get('/forgot-password',userController.forgotPassword);
+
 router.get('/sign-out', userController.signOut);
 
 router.post('/create-user', userController.createUser);
@@ -36,7 +38,16 @@ router.get('/auth/google/callback', passport.authenticate(
 
 //reset password
 
-router.get('/reset-password', userController.resetPassword);
+router.get('/forgot-password', userController.forgotPassword);
+
+router.post('/reset-password', userController.resetPassword);
+
+router.get('/reset', userController.renderResetPage);
+
+router.post('/forgot-password-reset', userController.forgotPasswordReset);
+
+
+//update password in db
 
 router.post('/update-db',userController.updateDB);
 

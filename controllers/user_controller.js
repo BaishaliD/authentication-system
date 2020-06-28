@@ -2,6 +2,8 @@ const User = require('../models/user');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const resetPasswordMailer = require('../mailers/password-reset');
+const Token = require('../models/token');
 
 //render profile page
 module.exports.profile = function (req, res) {
@@ -27,8 +29,6 @@ module.exports.signUp = function (req, res) {
 //render the Sign in page
 module.exports.signIn = function (req, res) {
 
-    console.log("SIGN IN", req.cookies);
-
     //if a user is authenticated(logged in), sign in page cannot be accessed
     if (req.isAuthenticated()) {
         return res.redirect('/profile');
@@ -46,6 +46,7 @@ module.exports.createUser = function (req, res) {
     //if Password and Confirm Password doesn't match redirect to Sign up page
     if (req.body.password != req.body.confirm_password) {
 
+        req.flash('error', "Password doesn't match");
         return res.redirect('back');
     }
 
@@ -80,20 +81,11 @@ module.exports.createUser = function (req, res) {
                 });
             });
 
-
-            // User.create(req.body, function(err,user){
-            //     if(err){
-            //         console.log(`Error in creating user during Sign up: ${err}`);
-            //         return;
-            //     }
-            //     return res.redirect('/sign-in');
-            // })
-
-
         }
 
-        //If email already exists in DB, redirect to Sign up page
+        //If email already exists in DB, redirect to Sign in page
         else {
+            req.flash('error', 'Email already exists');
             return res.redirect('back');
         }
     })
@@ -119,39 +111,33 @@ module.exports.signOut = function (req, res) {
 
 module.exports.resetPassword = function (req, res) {
 
-    let token = crypto.randomBytes(20).toString('hex');
+    // let token = crypto.randomBytes(20).toString('hex');
 
     return res.render('reset');
 };
 
 module.exports.updateDB = function (req, res) {
 
-    console.log("wooohoooo", req.user);
 
     let hash = req.user.password;
     let myPlaintextPassword = req.body.old_password;
 
     bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
 
-        console.log(result);
 
         if (!result) {
+
             req.flash('error', 'Incorrect password');
-            return;
+            return res.redirect('back');
         }
 
         else if (req.body.new_password != req.body.confirm_password) {
-            console.log(2);
-            req.flash('error', 'Incorrect password');
-            return;
+
+            req.flash('error', 'Please confirm new password again');
+            return res.redirect('back');
         }
 
         else {
-            // User.update(
-            //     {email: req.user.email},
-            //     {$set: {password : req.body.new_password}},function(err){
-            //         return res.redirect('/sign-out');
-            //     });
 
 
             bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -168,43 +154,66 @@ module.exports.updateDB = function (req, res) {
                 });
             });
 
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
     });
 
-
-
-
-    // if(req.body.old_password != req.user.password){
-    //     console.log(1);
-    //     req.flash('error', 'Incorrect password');
-    //     return;
-    // }
-    // else if(req.body.new_password != req.body.confirm_password){
-    //     console.log(2);
-    //     req.flash('error', 'Incorrect password');
-    //     return;
-    // }
-
-    // console.log(req.user.email);
-    // console.log(3);
-
-    // User.update(
-    //     {email: req.user.email},
-    //     {$set: {password : req.body.new_password}},function(err){
-    //         return res.redirect('/sign-out');
-    //     });
-
 };
+
+
+
+module.exports.forgotPassword = function (req, res) {
+
+    return res.render('reset');
+}
+
+module.exports.resetPassword = function (req, res) {
+   
+    resetPasswordMailer.passwordReset(req.body);
+}
+
+module.exports.renderResetPage = function (req, res) {
+
+    res.render('reset_page');
+}
+
+module.exports.forgotPasswordReset = function (req, res) {
+
+    if (req.body.new_password != req.body.confirm_password) {
+        req.flash('error', 'Password mismatch');
+        return res.redirect('back');
+    }
+
+    Token.findOne({ access_token: req.body.token }, function (err, data) {
+
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            bcrypt.hash(req.body.new_password, salt, function (err, hash) {
+
+                // Store hash in your password DB.
+
+                
+                User.updateOne(
+                    { email: data.emailId },
+                    { $set: { password: hash } }, function (err) {
+                        return res.redirect('/sign-out');
+                    },
+                        function(err){
+
+                            if(err){
+                                console.log('error in deleting token');
+                                return;
+                            }
+                            
+                            Token.deleteOne({access_token: req.body.token});
+                        }
+                    );
+
+            });
+        });
+
+
+    })
+
+
+
+}

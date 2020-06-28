@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="sign-up.css">
+
+
+</head>
+
+
+<body>
+    <main>
+    
+    <div class="reset">
+
+        <form id="reset-password-form" action="/forgot-password-reset" method="POST">
+
+            <input id="token" type="text" name="token" hidden>
+            
+            <span>New password : </span>
+            <input type="password" name="new_password" required>
+            <span>Confirm new password : </span>
+            <input type="password" name="confirm_password" required>
+
+
+            <% if (flash.error && flash.error.length > 0) { %>
+                <h5>
+                    <%= flash.error %>
+                </h5>
+                <% } %>
+
+                <% if (flash.success && flash.success.length > 0) { %>
+                <h5>
+                    <%= flash.success %>
+                </h5>
+                <% } %>
+
+
+
+            <input class="button" id="reset-button" type="submit" value="Reset">
+
+        </form>
+
+    </div>
+    </main>
+
+
+
+    <script>
+
+            const token = new URLSearchParams(window.location.search).get('token');
+            document.getElementById('token').value = token;
+
+    </script>
+
+
+</body>
+</html>

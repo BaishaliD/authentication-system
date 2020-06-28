@@ -1,0 +1,62 @@
+body{
+    background-image: url("./images/bg-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #cccccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+.sign-up-form{
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin: 10px auto;
+    padding-bottom: 3px;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+input:focus{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid blue;
+}
+
+.button{
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #eabb33;
+    border: none;
+    border-radius: 3px;
+}
+
+.button:hover{
+    background-color: #f5d060;
+}
+
+.button:focus{
+    outline: none;
+}

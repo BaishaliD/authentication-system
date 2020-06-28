@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <%= title %>
     </title>
-</head>
-<body>
-    <h1>Sign up</h1>
 
-    <form action="/create-user" method="POST">
-        <input type="text" name="name" placeholder="Your name" required>
-        <input type="email" name="email" placeholder="Your email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirm_password" placeholder="Confirm password" required>
-        <input type="submit" value="Sign Up">
-    </form>
+    <link rel="stylesheet" type="text/css" href="sign-up.css">
+    </link>
+
+
+</head>
+
+<body>
+
+    <main>
+
+
+        <h1>Sign up</h1>
+
+        <form class="sign-up-form" action="/create-user" method="POST">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm password" required>
+
+            <% if (flash.error && flash.error.length > 0) { %>
+            <h5>
+                <% if(flash.error==='Email already exists') { %>
+                    <%= flash.error %>
+                    <p>Go to <a href="/sign-in">Sign in</a> page</p>
+                <% } else { %>
+                    <%= flash.error %>
+                <% } %>
+            </h5>
+            <% } %>
+
+            <% if (flash.success && flash.success.length > 0) { %>
+            <h5>
+                <%= flash.success %>
+            </h5>
+            <% } %>
+
+
+
+            <input class="button" type="submit" value="Sign Up">
+        </form>
+
+        <div>Go to <a href="/sign-in">Sign in</a> page</div>
+
+
+    </main>
 
 </body>
+
 </html>

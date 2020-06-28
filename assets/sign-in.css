@@ -1,0 +1,100 @@
+body{
+    background-image: url("./images/bg-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #cccccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.or{
+    color: rgb(185, 176, 176);
+}
+
+.login-form{
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 3px;
+}
+
+.manual-auth{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
+
+.google-auth{
+    background-color: #db4c3f;
+    padding: 10px;
+    font-size: 1.rem;
+    color: white;
+    border-radius: 3px;
+}
+
+.google-auth span{
+    padding: 10px;
+}
+
+
+#google-text{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.login-form div{
+    margin: 10px auto;
+}
+
+.sign-in-input{
+    border: none;
+    border-bottom: 1px solid black;
+    margin: 10px auto;
+    padding-bottom: 3px;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.sign-in-input:focus{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid blue;
+}
+
+#send_button{
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #eabb33;
+    border: none;
+    border-radius: 3px;
+}
+
+#send_button:hover{
+    background-color: #f5d060;
+}
+
+.sign-up span a{
+    color: green;
+}
+
+.sign-up{
+    width: 100%;
+    border-top: rgb(185, 176, 176) 1px solid;
+    padding-top: 15px;
+    text-align: center;
+}
