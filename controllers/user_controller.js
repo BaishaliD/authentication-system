@@ -170,6 +170,7 @@ module.exports.forgotPassword = function (req, res) {
 module.exports.resetPassword = function (req, res) {
    
     resetPasswordMailer.passwordReset(req.body);
+    return res.redirect('/sign-in');
 }
 
 module.exports.renderResetPage = function (req, res) {

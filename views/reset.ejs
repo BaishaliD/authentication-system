@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Authentication System | Reset Password</title>
+
+    <link rel="stylesheet" type="text/css" href="sign-up.css"></link>
+
+
 </head>
 <body>
-    <form action="/reset-password" method="POST">
-        <input type="email" name="email" placeholder="enter email" required>
-        
-        <input type="submit" value="Send email">
-    </form>
+
+    <main>
+
+        <form action="/reset-password" method="POST">
+            <input type="email" name="email" placeholder="enter email" required autocomplete="off">
+            
+            <input class="button" type="submit" value="Send email">
+        </form>
+
+    </main>
+    
 </body>
 </html>
