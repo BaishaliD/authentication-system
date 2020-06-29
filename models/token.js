@@ -7,8 +7,15 @@ const tokenSchema = new mongoose.Schema({
     access_token: {
         type: String,
         expires: 60
-    }
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+        index: { expires: '1m' }
+      }
 },{
+    
         timestamps: true
 
 });

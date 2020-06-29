@@ -2,17 +2,13 @@ const nodeMailer = require('../config/nodemailer');
 const User = require('../models/user');
 const Token = require('../models/token');
 const crypto = require('crypto');
-const token = require('../models/token');
 
 exports.passwordReset = (user) => {
 
     let acc_token = crypto.randomBytes(20).toString('hex');
     let url = 'http://localhost:8000/reset?token='+acc_token;
 
-    Token.create({
-        emailId: user.email,
-        access_token: acc_token
-    }, function (err) {
+    Token.updateOne({emailId: user.email},{$set: {access_token: acc_token}},{upsert: true}, function (err) {
         if (err) {
             console.log(`Error in populating token schema: ${err}`);
             return;

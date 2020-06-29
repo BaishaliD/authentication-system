@@ -111,8 +111,6 @@ module.exports.signOut = function (req, res) {
 
 module.exports.resetPassword = function (req, res) {
 
-    // let token = crypto.randomBytes(20).toString('hex');
-
     return res.render('reset');
 };
 
@@ -168,9 +166,24 @@ module.exports.forgotPassword = function (req, res) {
 }
 
 module.exports.resetPassword = function (req, res) {
-   
-    resetPasswordMailer.passwordReset(req.body);
-    return res.redirect('/sign-in');
+    
+
+    User.findOne({email: req.body.email},function(err,user){
+        
+        if(!user){
+            req.flash('error','You have not registered yet.');
+            console.log("user not found");
+            return res.redirect('back');
+        }
+
+        resetPasswordMailer.passwordReset(req.body);
+        return res.redirect('/sign-in');
+
+
+    })  
+
+    
+
 }
 
 module.exports.renderResetPage = function (req, res) {
@@ -187,6 +200,11 @@ module.exports.forgotPasswordReset = function (req, res) {
 
     Token.findOne({ access_token: req.body.token }, function (err, data) {
 
+        if(!data){
+            req.flash('error','Token expired');
+            return res.redirect('back');
+        }
+
         bcrypt.genSalt(saltRounds, function (err, salt) {
             bcrypt.hash(req.body.new_password, salt, function (err, hash) {
 
@@ -196,18 +214,18 @@ module.exports.forgotPasswordReset = function (req, res) {
                 User.updateOne(
                     { email: data.emailId },
                     { $set: { password: hash } }, function (err) {
-                        return res.redirect('/sign-out');
-                    },
-                        function(err){
-
-                            if(err){
-                                console.log('error in deleting token');
-                                return;
-                            }
-                            
-                            Token.deleteOne({access_token: req.body.token});
+                        
+                        if(err){
+                            console.log('error in deleting token');
+                            return;
                         }
-                    );
+                        
+                        Token.deleteOne({access_token: req.body.token}, function(err){
+                            return res.redirect('/sign-out');
+                        });
+
+                        
+                    });
 
             });
         });

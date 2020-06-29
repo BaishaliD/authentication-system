@@ -14,9 +14,18 @@
     <main>
 
         <form action="/reset-password" method="POST">
-            <input type="email" name="email" placeholder="enter email" required autocomplete="off">
+            <input type="email" name="email" placeholder="enter email" required>
+
+            <% if (flash.error && flash.error.length > 0) { %>
+                <h5>
+                    <%= flash.error %>
+                    <p>Go to <a href="/sign-up">Sign Up</a></p>
+                </h5>
+                <% } %>
             
             <input class="button" type="submit" value="Send email">
+
+
         </form>
 
     </main>

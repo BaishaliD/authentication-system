@@ -25,11 +25,16 @@
             <span>Confirm new password : </span>
             <input type="password" name="confirm_password" required>
 
+            id :  <%= id%>
 
             <% if (flash.error && flash.error.length > 0) { %>
                 <h5>
                     <%= flash.error %>
                 </h5>
+                <!-- <form action="/reset-password" method="POST">
+                    <input type="email" name="email" value="" hidden>
+                    <input class="button" type="submit" value="Resend">
+                </form> -->
                 <% } %>
 
                 <% if (flash.success && flash.success.length > 0) { %>
