@@ -31,7 +31,7 @@
 
         <div class="reset">
 
-            <form id="reset-password-form" action="/update-db" method="POST">
+            <form id="reset-password-form" action="/update-password-profile" method="POST">
 
                 <span>Old password : </span>
                 <input type="password" name="old_password" required>
@@ -61,6 +61,7 @@
     </main>
 
     <script>
+
 
         function changePassword() {
             var x = document.querySelector('.reset');

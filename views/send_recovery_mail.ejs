@@ -9,7 +9,7 @@
          Please set a new password within 10 minutes of recieving the mail.
     </p>
 
-    <form action="/reset-password" method="POST">
+    <form action="/send-recovery-mail" method="POST">
         <input type="email" name="email" placeholder="Enter email" required>
 
         <% if (flash.error && flash.error.length > 0) { %>

@@ -13,6 +13,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+//render reset password email
 let renderTemplate = (data,relativePath) => {
     let mailHTML;
     ejs.renderFile(
