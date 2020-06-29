@@ -100,6 +100,7 @@ module.exports.createUser = function (req, res) {
 
 //get the sign in data and open the profile page for the user
 module.exports.createSession = function (req, res) {
+
     return res.redirect('/profile');
 };
 

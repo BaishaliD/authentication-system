@@ -16,7 +16,7 @@
     <div class="manual-auth">
 
 
-        <form action="/create-session" method="POST">
+        <form id="sign-in-form" action="/create-session" method="POST">
 
             <input id="email_input" class="sign-in-input" type="email" name="email" placeholder="Email address"
                 required>
@@ -30,6 +30,9 @@
                         <%= flash.error %>
                         </div>
                     <% } %>
+
+
+                    <div class="g-recaptcha" data-sitekey="6LfVcqoZAAAAAFvv26g0sEsmprxL3ITX98sTy4Wj"></div>
 
 
             <div class="sign-in-button">

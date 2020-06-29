@@ -2,6 +2,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+const fetch = require('node-fetch');
 
 //local authentication using passport
 passport.use(new LocalStrategy({
@@ -9,42 +10,60 @@ passport.use(new LocalStrategy({
     passReqToCallback: true
 },
     //function (req, email, password, done) {
-    function (req, email, password, done) {
-        //find a user and establish the identity
-        User.findOne({ email: email }, function (err, user) {
-            if (err) {
+    async function (req, email, password, done) {
 
-                req.flash('error', err);
-                console.log(`Error in finding user: Passport: ${err}`);
-                return done(err);
-            }
+        // Verify captcha
 
-            //if user is not found/ password doesn't match
-            if (!user) {
+        var captcha = req.body['g-recaptcha-response'];
+        const captchaVerified = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=6LfVcqoZAAAAAMMqaeFnQyU8Tw_doDr-uofnaqpo&response=${captcha}`, {
+            method: 'POST'
+        }).then(res => res.json());
 
-                req.flash('error', 'Incorrect username/password.');
-                return done(null, false);
-            }
+        //If captcha verification is unsuccessful...
+        if (!captchaVerified.success) {
+            req.flash('error', 'Captcha not verified.');
+            return done(null, false);
+        }
 
+        //If captcha verification is successful...
+        else {
+            //find a user and establish the identity
+            User.findOne({ email: email }, function (err, user) {
+                if (err) {
 
-            //compare hashed password
+                    req.flash('error', err);
+                    console.log(`Error in finding user: Passport: ${err}`);
+                    return done(err);
+                }
 
-            let hash = user.password;
-            let myPlaintextPassword = req.body.password;
-            bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+                //if user is not found/ password doesn't match
+                if (!user) {
 
-
-                if (!result) {
-
-                    req.flash('error', 'Incorrect username/password');
+                    req.flash('error', 'Incorrect username/password.');
                     return done(null, false);
                 }
 
-                return done(null, user);
 
+                //compare hashed password
+
+                let hash = user.password;
+                let myPlaintextPassword = req.body.password;
+                bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+
+
+                    if (!result) {
+
+                        req.flash('error', 'Incorrect username/password');
+                        return done(null, false);
+                    }
+
+                    return done(null, user);
+
+                });
+                
             });
-;
-        })
+
+        }
 
     }
 ));
