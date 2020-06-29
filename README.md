@@ -1,6 +1,6 @@
 # authentication-system
 
-This is a geenral authentication system that can be used in any web application.
+This is a general authentication system that can be used in any web application.
 Passport.js has been used for authentication.
 
 ## How to use
