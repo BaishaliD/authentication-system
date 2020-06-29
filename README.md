@@ -6,15 +6,16 @@ Passport.js has been used for authentication.
 ## How to use
 
 1. Clone this repository
-2. Navigate to the project directory
+2. Navigate to the project directory in the terminal
 3. Install MongoDB and npm
-4. Run the following commands from the directory  
+4. Run the following command from the directory to install all the required packages 
 
   `npm install`  
+5. To start the server, run the following command
   
   `npm start`  
 
-5. In your browser, open localhost:8000/sign-in to view the Home page
+6. In your browser, open <http://localhost:8000/sign-in> to view the Home page
 
 ## Features
 
