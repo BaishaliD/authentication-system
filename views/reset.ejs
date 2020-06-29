@@ -1,34 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication System | Reset Password</title>
+<main>
 
-    <link rel="stylesheet" type="text/css" href="sign-up.css"></link>
+    <h3>Set a new password</h3>
+    <p>
+        To set a new password, enter your email address below.
+        <br>
+         We will send you an email with the Reset Password link. 
+         <br>
+         Please set a new password within 10 minutes of recieving the mail.
+    </p>
 
+    <form action="/reset-password" method="POST">
+        <input type="email" name="email" placeholder="Enter email" required>
 
-</head>
-<body>
-
-    <main>
-
-        <form action="/reset-password" method="POST">
-            <input type="email" name="email" placeholder="enter email" required>
-
-            <% if (flash.error && flash.error.length > 0) { %>
-                <h5>
-                    <%= flash.error %>
-                    <p>Go to <a href="/sign-up">Sign Up</a></p>
-                </h5>
-                <% } %>
-            
-            <input class="button" type="submit" value="Send email">
+        <% if (flash.error && flash.error.length > 0) { %>
+        <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <%= flash.error %>            
+            <span>Go to <a href="/sign-up">Sign Up</a> to create an account.</span>
+        </div>
+        <% } %>
 
 
-        </form>
+        <input class="button" type="submit" value="Send mail">
 
-    </main>
-    
-</body>
-</html>
+
+    </form>
+
+    <a href="/sign-in">Home</a>
+
+</main>
+
+<script>
+
+    <% if (flash.success && flash.success.length > 0) { %>
+        new Noty({
+            type: 'success',
+            theme: 'relax',
+            text: '<%= flash.success %>',
+            layout: 'topRight',
+            timeout: 1500
+        }).show();
+    <% } %>
+
+</script>

@@ -43,13 +43,6 @@ module.exports.signIn = function (req, res) {
 module.exports.createUser = function (req, res) {
 
 
-    //if Password and Confirm Password doesn't match redirect to Sign up page
-    if (req.body.password != req.body.confirm_password) {
-
-        req.flash('error', "Password doesn't match");
-        return res.redirect('back');
-    }
-
     //if Password and Confirm Password doesn't matches, check if email id already exists in DB
 
     User.findOne({ email: req.body.email }, function (err, user) {
@@ -60,6 +53,16 @@ module.exports.createUser = function (req, res) {
 
         //If email doesn't exist in DB, create a new user and redirect to Sign in page
         if (!user) {
+
+
+
+            if (req.body.password != req.body.confirm_password) {
+
+                req.flash('error', "Passwords don't match. Try again.");
+                return res.redirect('back');
+            }
+
+
 
             bcrypt.genSalt(saltRounds, function (err, salt) {
                 bcrypt.hash(req.body.password, salt, function (err, hash) {
@@ -75,6 +78,8 @@ module.exports.createUser = function (req, res) {
                             console.log(`Error in creating user during Sign up: ${err}`);
                             return;
                         }
+
+                        req.flash('success', 'New account created.');
                         return res.redirect('/sign-in');
                     })
 
@@ -85,7 +90,7 @@ module.exports.createUser = function (req, res) {
 
         //If email already exists in DB, redirect to Sign in page
         else {
-            req.flash('error', 'Email already exists');
+            req.flash('error', 'Email already exists. Sign up using another email or go to Sign in page.');
             return res.redirect('back');
         }
     })
@@ -103,6 +108,15 @@ module.exports.signOut = function (req, res) {
 
     req.logout();
     req.flash('success', 'Logged out');
+    return res.redirect('/sign-in');
+
+};
+
+//sign out user after changing password
+module.exports.passwordChanged = function (req, res) {
+
+    req.logout();
+    req.flash('success', 'Password changed. Please log in again with the new password.');
     return res.redirect('/sign-in');
 
 };
@@ -125,13 +139,13 @@ module.exports.updateDB = function (req, res) {
 
         if (!result) {
 
-            req.flash('error', 'Incorrect password');
+            req.flash('error', 'Old password is incorrect.');
             return res.redirect('back');
         }
 
         else if (req.body.new_password != req.body.confirm_password) {
 
-            req.flash('error', 'Please confirm new password again');
+            req.flash('error', 'Please confirm new password again.');
             return res.redirect('back');
         }
 
@@ -143,10 +157,11 @@ module.exports.updateDB = function (req, res) {
 
                     // Store hash in your password DB.
 
-                    User.update(
+                    User.updateOne(
                         { email: req.user.email },
                         { $set: { password: hash } }, function (err) {
-                            return res.redirect('/sign-out');
+                            console.log("password changed");                            
+                            return res.redirect('/password-changed');
                         });
 
                 });
@@ -172,13 +187,12 @@ module.exports.resetPassword = function (req, res) {
         
         if(!user){
             req.flash('error','You have not registered yet.');
-            console.log("user not found");
             return res.redirect('back');
         }
 
         resetPasswordMailer.passwordReset(req.body);
+        req.flash('success','Recovery mail sent.');
         return res.redirect('/sign-in');
-
 
     })  
 
@@ -194,7 +208,7 @@ module.exports.renderResetPage = function (req, res) {
 module.exports.forgotPasswordReset = function (req, res) {
 
     if (req.body.new_password != req.body.confirm_password) {
-        req.flash('error', 'Password mismatch');
+        req.flash('error', 'Password mismatch. Please try again.');
         return res.redirect('back');
     }
 
@@ -221,7 +235,7 @@ module.exports.forgotPasswordReset = function (req, res) {
                         }
                         
                         Token.deleteOne({access_token: req.body.token}, function(err){
-                            return res.redirect('/sign-out');
+                            return res.redirect('/password-changed');
                         });
 
                         

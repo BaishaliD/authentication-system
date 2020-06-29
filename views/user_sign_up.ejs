@@ -1,58 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Authetication | Sign up
-    </title>
-
-    <link rel="stylesheet" type="text/css" href="sign-up.css"></link>
+<main>
 
 
-</head>
+    <h1>Sign up</h1>
 
-<body>
+    <form class="sign-up-form" action="/create-user" method="POST">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirm_password" placeholder="Confirm password" required>
 
-    <main>
-
-
-        <h1>Sign up</h1>
-
-        <form class="sign-up-form" action="/create-user" method="POST">
-            <input type="text" name="name" placeholder="Your name" required>
-            <input type="email" name="email" placeholder="Your email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm password" required>
-
-            <% if (flash.error && flash.error.length > 0) { %>
-            <h5>
-                <% if(flash.error==='Email already exists') { %>
-                    <%= flash.error %>
-                    <p>Go to <a href="/sign-in">Sign in</a> page</p>
-                <% } else { %>
-                    <%= flash.error %>
-                <% } %>
-            </h5>
-            <% } %>
-
-            <% if (flash.success && flash.success.length > 0) { %>
-            <h5>
-                <%= flash.success %>
-            </h5>
-            <% } %>
+        <% if (flash.error && flash.error.length > 0) { %>
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <%= flash.error %>
+                </div>
+        <% } %>
 
 
 
-            <input class="button" type="submit" value="Sign Up">
-        </form>
+        <input class="button" type="submit" value="Sign Up">
+    </form>
 
-        <div>Go to <a href="/sign-in">Sign in</a> page</div>
+    <div>Go to <a href="/sign-in">Sign in</a> page</div>
 
 
-    </main>
-
-</body>
-
-</html>
+</main>

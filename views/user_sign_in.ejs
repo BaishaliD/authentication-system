@@ -1,92 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" type="text/css" href="/css/sign-in.css">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Authentication | Sign in
-    </title>
+<div class="login-form">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="sign-in.css">
-
-    <script src="https://kit.fontawesome.com/198cd6dc1b.js" crossorigin="anonymous"></script>
-
-</head>
-
-<body>
-    <div class="login-form">
-
-        <div class="google-auth">
-            <span><i class="fab fa-google"></i></span>
-            <span><a id="google-text" href="/auth/google">Continue with Google</a></span>
-        </div>
-
-        <div class="or">
-            or
-        </div>
-
-        <div class="manual-auth">
-
-
-            <form action="/create-session" method="POST">
-
-                <input id="email_input" class="sign-in-input" type="email" name="email" placeholder="Email address"
-                    required>
-                <input id="password_input" class="sign-in-input" type="password" name="password" placeholder="Password"
-                    required>
-
-             
-
-                <div class="sign-in-button">
-                    <input id="send_button" type="submit" value="Sign In">
-                </div>
-
-            </form>
-
-            <div class="forgot-password">
-                <a href='/forgot-password'>Forgot password?</a>
-            </div>
-        </div>
-
-        <div class="sign-up">
-            <span>New here?</span>
-            <span> <a href="/sign-up">Sign Up!</a></span>
-        </div>
-
-
-
-
+    <div class="google-auth">
+        <span style="border-right: 1px white solid;"><i class="fab fa-google"></i></span>
+        <span><a id="google-text" href="/auth/google">Continue with Google</a></span>
     </div>
 
+    
+    <div class="or">
+        <hr>
+        <span class="line-through">Or</span>
+    </div>
+
+    <div class="manual-auth">
+
+
+        <form action="/create-session" method="POST">
+
+            <input id="email_input" class="sign-in-input" type="email" name="email" placeholder="Email address"
+                required>
+            <input id="password_input" class="sign-in-input" type="password" name="password" placeholder="Password"
+                required>
+
+
+                <% if (flash.error && flash.error.length > 0) { %>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <%= flash.error %>
+                        </div>
+                    <% } %>
+
+
+            <div class="sign-in-button">
+                <input id="send_button" class="button" type="submit" value="Sign In">
+            </div>
+
+        </form>
+
+        <div class="forgot-password">
+            <a href='/forgot-password'>Forgot password?</a>
+        </div>
+    </div>
+
+    <div class="sign-up">
+        <span>New here?</span>
+        <span> <a href="/sign-up">Sign Up!</a></span>
+    </div>
 
     <script>
 
-        <% if (flash.error && flash.error.length > 0) { %>
-                new Noty({
-                    theme: 'relax',
-                    text: '<%= flash.error %>',
-                    type: 'error',
-                    layout: 'topRight',
-                    timeout: 1500
-                }).show()
-         <% } %>
+        <% if (flash.success && flash.success.length > 0) { %>
+            new Noty({
+                type: 'success',
+                theme: 'relax',
+                text: '<%= flash.success %>',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>
 
-         <% if (flash.success && flash.success.length > 0) { %>
-                new Noty({
-                    theme: 'relax',
-                    text: '<%= flash.success %>',
-                    type: 'success',
-                    layout: 'topRight',
-                    timeout: 1500
-                }).show()
-         <% } %>
+    </script>
 
-    </script>>
+</div>
 
-</body>
 
-</html>

@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%=title%>
-    </title>
-
-    <link rel="stylesheet" type="text/css" href="profile.css">
-
-</head>
+<link rel="stylesheet" type="text/css" href="/css/profile.css">
 
 <body>
 
@@ -20,7 +8,7 @@
             <span>Profile</span>
             <a class="button" id="sign-out" href="/sign-out">Sign out</a>
         </div>
-        
+
 
         <div class="profile-info">
             <p>Name : <%=user.name%></p>
@@ -29,27 +17,17 @@
 
         <div class="buttons">
 
-            <!-- <a id="reset-password" href="/reset-password">Change Password</a> -->
-
-            <!-- onclick="changePassword()" -->
-
             <button id="reset-password" class="button" onclick="changePassword()">Change Password</button>
-
-            <!-- <a id="sign-out" href="/sign-out">Sign out</a> -->
 
         </div>
 
-        <% if (flash.error && flash.error.length > 0) { %>
-            <h5>
-                <%= flash.error %>
-            </h5>
-            <% } %>
+        
 
-            <% if (flash.success && flash.success.length > 0) { %>
-            <h5>
-                <%= flash.success %>
-            </h5>
-            <% } %>
+        <% if (flash.success && flash.success.length > 0) { %>
+        <h5>
+            <%= flash.success %>
+        </h5>
+        <% } %>
 
         <div class="reset">
 
@@ -63,17 +41,12 @@
                 <input type="password" name="confirm_password" required>
 
 
-                <% if (flash.error && flash.error.length > 0) { %>
-                    <h5>
-                        <%= flash.error %>
-                    </h5>
-                    <% } %>
-    
-                    <% if (flash.success && flash.success.length > 0) { %>
-                    <h5>
-                        <%= flash.success %>
-                    </h5>
-                    <% } %>
+
+                <% if (flash.success && flash.success.length > 0) { %>
+                <h5>
+                    <%= flash.success %>
+                </h5>
+                <% } %>
 
 
 
@@ -97,10 +70,17 @@
                 x.style.display = "none";
             }
         }
+
+
+        <% if (flash.error && flash.error.length > 0) { %>
+            new Noty({
+                type: 'error',
+                theme: 'relax',
+                text: '<%= flash.error %>',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>
+
+
     </script>
-
-
-
-</body>
-
-</html>

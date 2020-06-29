@@ -1,5 +1,5 @@
 body{
-    background-image: url("./images/bg-image.jpg");
+    background-image: url("../images/bg-image.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #cccccc;
@@ -7,6 +7,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 
 main{
@@ -19,15 +20,34 @@ main{
     border-radius: 3px;
 }
 
-.sign-up-form{
+form{
     max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: white;
-    padding: 30px;
+    /* padding: 30px; */
     border-radius: 3px;
+}
+
+
+.button{
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #eabb33;
+    border: none;
+    border-radius: 3px;
+    width: fit-content;
+}
+
+.button:hover{
+    background-color: #f5d060;
+    cursor: pointer;
+}
+
+.button:focus{
+    outline: none;
 }
 
 input{
@@ -45,18 +65,12 @@ input:focus{
     border-bottom: 1px solid blue;
 }
 
-.button{
-    padding: 10px 15px;
-    font-size: 1.2rem;
-    background-color: #eabb33;
-    border: none;
-    border-radius: 3px;
+.error-message{
+    padding: 5px 0;
+    color: red;
+    font-size: 0.8rem;
 }
 
-.button:hover{
-    background-color: #f5d060;
-}
-
-.button:focus{
-    outline: none;
+a{
+    color: green;
 }

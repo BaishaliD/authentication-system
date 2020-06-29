@@ -1,47 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication | Reset password</title>
+<main>
 
-    <link rel="stylesheet" type="text/css" href="sign-up.css">
-
-
-</head>
-
-
-<body>
-    <main>
-    
     <div class="reset">
 
         <form id="reset-password-form" action="/forgot-password-reset" method="POST">
 
             <input id="token" type="text" name="token" hidden>
-            
+
             <span>New password : </span>
             <input type="password" name="new_password" required>
             <span>Confirm new password : </span>
             <input type="password" name="confirm_password" required>
 
-            id :  <%= id%>
 
             <% if (flash.error && flash.error.length > 0) { %>
-                <h5>
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <% if (flash.error == 'Token expired') { %>
+                    Recovery link expired. <a href='/forgot-password'>Try again</a> or go back to <a href="./sign-in">Home.</a><div class=""></div>                <% } else{ %>
                     <%= flash.error %>
-                </h5>
-                <!-- <form action="/reset-password" method="POST">
+                <% } %>
+            </div>
+
+            <!-- <form action="/reset-password" method="POST">
                     <input type="email" name="email" value="" hidden>
                     <input class="button" type="submit" value="Resend">
                 </form> -->
-                <% } %>
-
-                <% if (flash.success && flash.success.length > 0) { %>
-                <h5>
-                    <%= flash.success %>
-                </h5>
-                <% } %>
+            <% } %>
 
 
 
@@ -50,17 +34,13 @@
         </form>
 
     </div>
-    </main>
+</main>
 
 
 
-    <script>
+<script>
 
-            const token = new URLSearchParams(window.location.search).get('token');
-            document.getElementById('token').value = token;
+    const token = new URLSearchParams(window.location.search).get('token');
+    document.getElementById('token').value = token;
 
-    </script>
-
-
-</body>
-</html>
+</script>

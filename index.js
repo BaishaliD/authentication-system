@@ -3,6 +3,7 @@ const app = express();
 const port = 8000;
 const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
+const expressLayouts = require('express-ejs-layouts');
 
 //used for session cookie
 const session = require('express-session');
@@ -56,6 +57,10 @@ app.use(passport.setAuthenticatedUser);
 
 app.use(flash());
 app.use(customMiddleware.setFlash);
+
+app.use(expressLayouts);
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 //use express router
 app.use('/',require('./routes/index'));

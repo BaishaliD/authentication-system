@@ -13,7 +13,11 @@ router.get('/sign-in', userController.signIn);
 
 router.get('/forgot-password',userController.forgotPassword);
 
+//sign out user
 router.get('/sign-out', userController.signOut);
+
+//sign out user after successfully changing the password
+router.get('/password-changed', userController.passwordChanged);
 
 router.post('/create-user', userController.createUser);
 

@@ -23,7 +23,7 @@ passport.use(new LocalStrategy({
             //if user is not found/ password doesn't match
             if (!user) {
 
-                req.flash('error', 'Incorrect username/password');
+                req.flash('error', 'Incorrect username/password.');
                 return done(null, false);
             }
 
