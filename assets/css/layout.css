@@ -31,6 +31,10 @@ form{
     border-radius: 3px;
 }
 
+#reset-password-form{
+    align-items: flex-start;
+}
+
 
 .button{
     padding: 10px 15px;

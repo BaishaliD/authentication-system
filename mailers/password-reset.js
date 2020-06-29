@@ -24,7 +24,7 @@ exports.passwordReset = (user) => {
         let htmlString = nodeMailer.renderTemplate({user:user,reset_url: url},'/password_reset.ejs');
         
         nodeMailer.transporter.sendMail({
-            from: 'tin.sept20@gmail.com',
+            from: 'katlyn62@ethereal.email',
             to: user.email,
             subject: "Reset password",
             html: htmlString

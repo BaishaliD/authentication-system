@@ -3,13 +3,13 @@ const ejs = require('ejs');
 const path = require('path');
 
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+
+    host: 'smtp.ethereal.email',
     port: 587,
     secure: false,
     auth: {
-        user: 'tin.sept20',
-        pass: 'balalaika'
+        user: 'katlyn62@ethereal.email',
+        pass: 'WT8vCAMHZgJcrmHfsh'
     }
 });
 

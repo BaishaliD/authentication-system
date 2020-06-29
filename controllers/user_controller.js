@@ -218,7 +218,7 @@ module.exports.sendRecoveryMail = function (req, res) {
     })  
     
 
-}
+};
 
 
 
