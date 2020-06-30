@@ -8,14 +8,16 @@ Passport.js has been used for authentication.
 1. Clone this repository
 2. Navigate to the project directory in the terminal
 3. Install MongoDB and npm
-4. Run the following command from the directory to install all the required packages 
+4. Create a .env file and include the environment variables as mentioned in the .env_sample file (To generate your Google oauth 2.0 credentials, visit <https://developers.google.com/identity/protocols/oauth2>)
+5. In user_sign_in.ejs file, replace the value of the 'data-sitekey' field of the form with the Site key for your reCAPTCHA (Visit <https://www.google.com/recaptcha/intro/v3.html> to generate your own reCAPTCHA credentials)
+6. Run the following command from the directory to install all the required packages 
 
   `npm install`  
-5. To start the server, run the following command
+7. To start the server, run the following command
   
   `npm start`  
 
-6. In your browser, open <http://localhost:8000/sign-in> to view the Home page
+8. In your browser, open <http://localhost:YOUR-PORT-NUMBER/sign-in> to view the Home page
 
 ## Features
 
