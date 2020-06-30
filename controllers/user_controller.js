@@ -202,7 +202,7 @@ module.exports.sendRecoveryMail = function (req, res) {
 
     //Check if the user exists in the db. If not, generate an error message.
     User.findOne({email: req.body.email},function(err,user){
-         console.log('User  ',user);
+        
         if(!user){
             req.flash('error','You have not registered yet.');
             return res.redirect('back');

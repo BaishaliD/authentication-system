@@ -1,15 +1,22 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
-const port = 8000;
+const port = process.env.PORT;
 const db = require('./config/mongoose');
+
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 
 //used for session cookie
 const session = require('express-session');
+
+//Use passport for authentication
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
 const passportGoogle = require('./config/passport_google_oauth2_strategy');
+
+
 const MongoStore = require('connect-mongo')(session);
 const crypto = require('crypto');
 
@@ -46,7 +53,7 @@ app.use(session({
         mongooseConnection: db,
         autoRemove: 'disabled'
     },function(err){
-        console.log(err || 'Connect mongodb set up');
+        console.log('Error in storing session cookie to MongoDB',err);
     })
 }));
 
@@ -65,9 +72,11 @@ app.set('layout extractScripts',true);
 //use express router
 app.use('/',require('./routes/index'));
 
+
 app.listen(port,function(err){
     if(err){
         console.log(`Error in running server: ${err}`);
     }
+    
     console.log(`Server is running on port: ${port}`);
 });

@@ -5,9 +5,9 @@ const User = require('../models/user');
 
 //tell passport to use Google strategy
 passport.use(new googleStrategy({
-    clientID: '426537625128-dlka14d99jutfdl13msmb3p22a6bngh1.apps.googleusercontent.com',
-    clientSecret: 'mKgIlhYaqJOuQ-nJ1EgZ9tTr',
-    callbackURL: 'http://localhost:8000/auth/google/callback'
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL
 },
 
     function (accessToken, refreshToken, profile, done) {
@@ -18,7 +18,6 @@ passport.use(new googleStrategy({
                 return;
             }
 
-            console.log(profile);
 
             if (user) {
                 //if user is found, set this user as req.user

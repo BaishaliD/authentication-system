@@ -14,8 +14,9 @@ passport.use(new LocalStrategy({
 
         // Verify captcha
 
+        var secret_key = process.env.SECRET_KEY;
         var captcha = req.body['g-recaptcha-response'];
-        const captchaVerified = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=6LfVcqoZAAAAAMMqaeFnQyU8Tw_doDr-uofnaqpo&response=${captcha}`, {
+        const captchaVerified = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${captcha}`, {
             method: 'POST'
         }).then(res => res.json());
 
