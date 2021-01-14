@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/authentication_system');
+mongoose.connect(
+    'mongodb://localhost/authentication_system',
+    {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
