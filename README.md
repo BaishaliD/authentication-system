@@ -21,6 +21,8 @@ Passport.js has been used for authentication.
 
 ## Features
 
+![Image 1](assets/images/bg-image.jpg)
+
 ### Sign in
 
 Authentication used : 
