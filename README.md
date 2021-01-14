@@ -21,10 +21,10 @@ Passport.js has been used for authentication.
 
 ## Features
 
-![Image 1](assets/images/auth4.jpg)
-![Image 2](assets/images/auth2.jpg)
-![Image 3](assets/images/auth3.jpg)
-![Image 4](assets/images/auth5.jpg)
+![Image 1](assets/images/auth4.png)
+![Image 2](assets/images/auth2.png)
+![Image 3](assets/images/auth3.png)
+![Image 4](assets/images/auth5.png)
 
 ### Sign in
 
